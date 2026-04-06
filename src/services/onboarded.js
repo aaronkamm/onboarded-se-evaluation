@@ -1,6 +1,5 @@
 const BASE_URL = 'https://app.onboarded.com/api/v1';
 
-// Wrapper for API calls
 const getHeaders = ({ json = false } = {}) => {
   const headers = {
     Authorization: `Bearer ${process.env.ONBOARDED_TOKEN}`
@@ -12,45 +11,33 @@ const getHeaders = ({ json = false } = {}) => {
 };
 
 export const getEmployee = async (employeeId) => {
-  try {
-    if (!employeeId) throw new Error('employeeId is required');
+  if (!employeeId) throw new Error('employeeId is required');
 
-    const res = await fetch(`${BASE_URL}/employees/${employeeId}`, {
-      headers: getHeaders()
-    });
+  const res = await fetch(`${BASE_URL}/employees/${employeeId}`, {
+    headers: getHeaders()
+  });
 
-    if (!res.ok) {
-      throw new Error(
-        `Onboarded GET /employees/${employeeId} failed: ${res.status}`
-      );
-    }
-
-    const data = await res.json();
-    return data;
-  } catch (error) {
-    console.error(error);
-    throw error;
+  if (!res.ok) {
+    throw new Error(
+      `Onboarded GET /employees/${employeeId} failed: ${res.status}`
+    );
   }
+
+  return res.json();
 };
 
 export const getEmployer = async (employerId) => {
-  try {
-    if (!employerId) throw new Error('employerId is required');
+  if (!employerId) throw new Error('employerId is required');
 
-    const res = await fetch(`${BASE_URL}/employers/${employerId}`, {
-      headers: getHeaders()
-    });
+  const res = await fetch(`${BASE_URL}/employers/${employerId}`, {
+    headers: getHeaders()
+  });
 
-    if (!res.ok) {
-      throw new Error(
-        `Onboarded GET /employers/${employerId} failed: ${res.status}`
-      );
-    }
-
-    const data = await res.json();
-    return data;
-  } catch (error) {
-    console.error(error);
-    throw error;
+  if (!res.ok) {
+    throw new Error(
+      `Onboarded GET /employers/${employerId} failed: ${res.status}`
+    );
   }
+
+  return res.json();
 };
