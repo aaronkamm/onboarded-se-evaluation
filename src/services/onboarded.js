@@ -54,30 +54,3 @@ export const getEmployer = async (employerId) => {
     throw error;
   }
 };
-
-export const registerWebhook = async (url) => {
-  try {
-    if (!url) throw new Error('url is required');
-
-    const res = await fetch(`${BASE_URL}/webhooks`, {
-      method: 'POST',
-      headers: getHeaders({ json: true }),
-      body: JSON.stringify({
-        url,
-        description: 'Onboarded → Airtable compliance/task tracker',
-        subscribed_events: ['task.updated']
-      })
-    });
-
-    if (!res.ok) {
-      const body = await res.text();
-      throw new Error(`Failed to register webhook: ${res.status} ${body}`);
-    }
-
-    const data = await res.json();
-    return data;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-};
