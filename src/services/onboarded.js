@@ -1,0 +1,83 @@
+const BASE_URL = 'https://app.onboarded.com/api/v1';
+
+// Wrapper for API calls
+const getHeaders = ({ json = false } = {}) => {
+  const headers = {
+    Authorization: `Bearer ${process.env.ONBOARDED_TOKEN}`
+  };
+
+  if (json) headers['Content-Type'] = 'application/json';
+
+  return headers;
+};
+
+export const getEmployee = async (employeeId) => {
+  try {
+    if (!employeeId) throw new Error('employeeId is required');
+
+    const res = await fetch(`${BASE_URL}/employees/${employeeId}`, {
+      headers: getHeaders()
+    });
+
+    if (!res.ok) {
+      throw new Error(
+        `Onboarded GET /employees/${employeeId} failed: ${res.status}`
+      );
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const getEmployer = async (employerId) => {
+  try {
+    if (!employerId) throw new Error('employerId is required');
+
+    const res = await fetch(`${BASE_URL}/employers/${employerId}`, {
+      headers: getHeaders()
+    });
+
+    if (!res.ok) {
+      throw new Error(
+        `Onboarded GET /employers/${employerId} failed: ${res.status}`
+      );
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const registerWebhook = async (url) => {
+  try {
+    if (!url) throw new Error('url is required');
+
+    const res = await fetch(`${BASE_URL}/webhooks`, {
+      method: 'POST',
+      headers: getHeaders({ json: true }),
+      body: JSON.stringify({
+        url,
+        description: 'Onboarded → Airtable compliance/task tracker',
+        subscribed_events: ['task.updated']
+      })
+    });
+
+    if (!res.ok) {
+      const body = await res.text();
+      throw new Error(`Failed to register webhook: ${res.status} ${body}`);
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
