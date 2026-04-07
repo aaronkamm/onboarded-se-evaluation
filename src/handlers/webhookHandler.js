@@ -3,6 +3,7 @@ import verifyWebhookToken from '../middleware/auth.js';
 import upsertComplianceRecord from '../services/airtableClient.js';
 
 export const handleWebhook = async (req, res) => {
+  console.log('Incoming headers:', JSON.stringify(req.headers)); //TEMPORARY FOR CHECKING LOG IN ONBOARDED
   const token = req.headers['x-onboarded-token'];
   if (!verifyWebhookToken(token)) {
     console.warn('Webhook received with invalid token');
