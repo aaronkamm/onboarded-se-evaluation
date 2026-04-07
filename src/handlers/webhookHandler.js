@@ -82,7 +82,6 @@ export const buildRecord = (task, employee, employer) => ({
   employer_id: task.employer_id,
   employer_name: employer?.name ?? 'Unknown',
   status: task.status,
-  progress_percent: task.progress?.percent ?? 100,
   completed_at: task.completed_at,
   created_at: task.created_at
 });

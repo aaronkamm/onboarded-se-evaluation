@@ -20,7 +20,6 @@ const toAirtableFields = (record) => ({
   'Employer ID': record.employer_id,
   'Employer Name': record.employer_name,
   Status: record.status,
-  'Progress (%)': record.progress_percent,
   'Completed At': record.completed_at,
   'Created At': record.created_at
 });
