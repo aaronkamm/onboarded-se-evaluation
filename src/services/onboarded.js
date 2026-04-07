@@ -1,14 +1,8 @@
 const BASE_URL = 'https://app.onboarded.com/api/v1';
 
-const getHeaders = ({ json = false } = {}) => {
-  const headers = {
-    Authorization: `Bearer ${process.env.ONBOARDED_TOKEN}`
-  };
-
-  if (json) headers['Content-Type'] = 'application/json';
-
-  return headers;
-};
+const getHeaders = () => ({
+  Authorization: `Bearer ${process.env.ONBOARDED_TOKEN}`
+});
 
 export const getEmployee = async (employeeId) => {
   if (!employeeId) throw new Error('employeeId is required');
