@@ -22,14 +22,6 @@ export const handleWebhook = async (req, res) => {
     });
   }
 
-  if (task.status !== 'completed') {
-    return res.status(200).json({
-      received: true,
-      action: 'ignored',
-      reason: `status is ${task.status}`
-    });
-  }
-
   console.log(
     `Processing completed task: ${task.id} for employee: ${task.employee_id}`
   );
@@ -82,6 +74,8 @@ export const buildRecord = (task, employee, employer) => ({
   employer_id: task.employer_id,
   employer_name: employer?.name ?? 'Unknown',
   status: task.status,
-  completed_at: task.completed_at,
+  next_action: task.next_action?.type ?? '',
+  last_updated_at: new Date().toISOString(),
+  completed_at: task.completed_at ?? '',
   created_at: task.created_at
 });

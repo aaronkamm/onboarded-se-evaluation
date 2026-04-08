@@ -20,7 +20,9 @@ const toAirtableFields = (record) => ({
   'Employer ID': record.employer_id,
   'Employer Name': record.employer_name,
   Status: record.status,
+  'Next Action': record.next_action,
   'Completed At': record.completed_at,
+  'Last Updated At': record.last_updated_at,
   'Created At': record.created_at
 });
 
