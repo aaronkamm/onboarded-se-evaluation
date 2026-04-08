@@ -9,7 +9,7 @@ const REQUIRED_ENV_VARS = [
   'ONBOARDED_WEBHOOK_TOKEN',
   'AIRTABLE_API_KEY',
   'AIRTABLE_BASE_ID',
-  'AIRTABLE_TABLE_NAME'
+  'AIRTABLE_TABLE_ID'
 ];
 
 const missing = REQUIRED_ENV_VARS.filter((key) => !process.env[key]);

@@ -1,7 +1,7 @@
 const getBaseUrl = () =>
   `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}`;
 
-const getTableName = () => process.env.AIRTABLE_TABLE_NAME;
+const getTableName = () => process.env.AIRTABLE_TABLE_ID;
 
 const getHeaders = ({ json = false } = {}) => {
   const headers = {
