@@ -75,7 +75,9 @@ export const buildRecord = (task, employee, employer) => ({
   employer_name: employer?.name ?? 'Unknown',
   status: task.status.replace(/_/g, ' '),
   next_action: task.next_action?.type?.replace(/_/g, ' ') ?? '',
-  last_updated_at: new Date().toISOString(),
-  completed_at: task.completed_at ?? '',
-  created_at: task.created_at
+  last_updated_at: new Date().toUTCString(),
+  completed_at: task.completed_at
+    ? new Date(task.completed_at).toUTCString()
+    : '',
+  created_at: new Date(task.created_at).toUTCString()
 });
