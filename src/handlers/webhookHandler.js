@@ -65,7 +65,7 @@ export const handleWebhook = async (req, res) => {
 
 export const buildRecord = (task, employee, employer) => ({
   task_id: task.id,
-  task_name: task.name ?? 'Unknown Form',
+  task_name: task.name,
   employee_id: task.employee_id,
   employee_name: employee
     ? `${employee.first_name} ${employee.last_name}`.trim()
@@ -73,8 +73,8 @@ export const buildRecord = (task, employee, employer) => ({
   employee_email: employee?.email ?? '',
   employer_id: task.employer_id,
   employer_name: employer?.name ?? 'Unknown',
-  status: task.status,
-  next_action: task.next_action?.type ?? '',
+  status: task.status.replace(/_/g, ' '),
+  next_action: task.next_action?.type?.replace(/_/g, ' ') ?? '',
   last_updated_at: new Date().toISOString(),
   completed_at: task.completed_at ?? '',
   created_at: task.created_at
